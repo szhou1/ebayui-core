@@ -48,6 +48,7 @@ describe('given an input textbox with floating label', () => {
 
     describe('when the input is focused', () => {
         test('then the inline class is removed', () => {
+            testUtils.triggerEvent(window, 'load');
             expect(label.classList.contains('floating-label__label--inline')).to.equal(true);
             testUtils.triggerEvent(input, 'focus');
             expect(label.classList.contains('floating-label__label--inline')).to.equal(false);
@@ -56,6 +57,7 @@ describe('given an input textbox with floating label', () => {
 
     describe('when the input is blurred', () => {
         test('then the inline class is added', () => {
+            testUtils.triggerEvent(window, 'load');
             label.classList.remove('floating-label__label--inline');
             expect(label.classList.contains('floating-label__label--inline')).to.equal(false);
             testUtils.triggerEvent(input, 'blur');
