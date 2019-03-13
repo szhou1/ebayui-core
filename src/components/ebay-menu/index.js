@@ -150,6 +150,17 @@ function onRender(event) {
     this.contentEl = this.el.querySelector(contentSelector);
     this.itemEls = this.el.querySelectorAll('.menu__item, .fake-menu__item');
 
+    if (this.expander) {
+        this.expander.destroyAsync();
+    }
+
+    this.expander = new Expander(this.el, {
+        hostSelector: buttonSelector,
+        focusManagement: 'focusable',
+        expandOnClick: true,
+        autoCollapse: true
+    });
+
     if (event.firstRender) {
         if (this.state.isCheckbox) {
             this.el.setCheckedList = setCheckedList.bind(this);
@@ -174,18 +185,16 @@ function onRender(event) {
             observer.observeInner(this, itemEl, 'checked', `items[${i}]`, 'items', checkedObserverCallback);
         });
 
-        const expander = new Expander(this.el, { // eslint-disable-line no-unused-vars
-            hostSelector: buttonSelector,
-            focusManagement: 'focusable',
-            expandOnClick: true,
-            autoCollapse: true
-        });
-
         // FIXME: should be outside of firstRender, but only when itemEls changes
         if (!this.state.isFake) {
             rovingTabindex.createLinear(this.contentEl, 'div', { index: 0, autoReset: 0 });
         }
     }
+}
+
+function destroyExpander() {
+    this.expander.destroyAsync();
+    this.expander = undefined;
 }
 
 /**
@@ -353,6 +362,7 @@ module.exports = markoWidgets.defineComponent({
     getInitialState,
     getTemplateData,
     onRender,
+    destroy: destroyExpander,
     update_expanded,
     handleItemClick,
     handleItemKeydown,
