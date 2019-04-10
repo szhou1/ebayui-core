@@ -1,13 +1,13 @@
 <script marko-init>
-    var getWidgetId = require('../../common/get-marko-3-widget-id');
+    var getWidgetId = require("../../common/get-marko-3-widget-id");
     var processHtmlAttributes = require("../../common/html-attributes");
 </script>
 
 <var size=(data.size || "medium")/>
 <var priority=(data.priority || "secondary")/>
 <var variant=(data.href ? "fake" : data.variant)/>
-<var isIconVariant=(variant === 'icon')/>
-<var isExpandVariant=(variant === 'expand')/>
+<var isIconVariant=(variant === "icon")/>
+<var isExpandVariant=(variant === "expand")/>
 <var isBadged=Boolean(data.badgeNumber && isIconVariant)/>
 <var noText=(isIconVariant || isBadged || (isExpandVariant && data.noText))/>
 <var baseClass=(variant ? "${variant}-btn" : "btn")/>
